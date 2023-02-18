@@ -1,15 +1,13 @@
-import { prisma } from '../server/db/client';
-import { useRef, useState } from 'react';
-
+import {useRef, useState } from 'react';
 import classes from './SettingsUpdate.module.css';
 
 function SettingsUpdate(props) {
-  const [isPasswordSame, setIsPasswordSame] = useState(true);
+  // const [isPasswordSame, setIsPasswordSame] = useState(true);
 
   const nameInputRef = useRef();
   const emailInputRef = useRef();
-  const password1InputRef = useRef();
-  const password2InputRef = useRef();
+  // const password1InputRef = useRef();
+  // const password2InputRef = useRef();
   const oibInputRef = useRef();
   const phoneInputRef = useRef();
   const addressInputRef = useRef();
@@ -22,7 +20,7 @@ function SettingsUpdate(props) {
 
     const enteredName = nameInputRef.current.value;
     const enteredEmail = emailInputRef.current.value;
-    const enteredPass1 = password1InputRef.current.value;
+    // const enteredPass1 = password1InputRef.current.value;
     const enteredOib = oibInputRef.current.value;
     const enteredPhone = phoneInputRef.current.value;
     const enteredAddress = addressInputRef.current.value;
@@ -33,7 +31,7 @@ function SettingsUpdate(props) {
     const userData = {
       name: enteredName,
       email: enteredEmail,
-      password: enteredPass1,
+      // password: enteredPass1,
       oib: enteredOib,
       phone: enteredPhone,
       address: enteredAddress,
@@ -45,25 +43,37 @@ function SettingsUpdate(props) {
     props.onUpdateSettings(userData);
   }
 
-  function passwordChangeHandler() {
-    if (password1InputRef.current.value !== password2InputRef.current.value) {
-      setIsPasswordSame(false);
-    } else {
-      setIsPasswordSame(true);
-    }
-  }
+  // function passwordChangeHandler() {
+  //   if (password1InputRef.current.value !== password2InputRef.current.value) {
+  //     setIsPasswordSame(false);
+  //   } else {
+  //     setIsPasswordSame(true);
+  //   }
+  // }
 
   return (
     <form className={classes.form} onSubmit={submitHandler}>
       <div className={classes.control}>
         <label htmlFor="title">Name</label>
-        <input type="text" required id="name" ref={nameInputRef} />
+        <input
+          type="text"
+          required
+          id="name"
+          ref={nameInputRef}
+          defaultValue={props.getUser.name}
+        />
       </div>
       <div className={classes.control}>
         <label htmlFor="email">Email</label>
-        <input type="text" required id="email" ref={emailInputRef} />
+        <input
+          type="text"
+          required
+          id="email"
+          ref={emailInputRef}
+          defaultValue={props.getUser.email}
+        />
       </div>
-      <div className={classes.control}>
+      {/* <div className={classes.control}>
         <label htmlFor="password">Password</label>
         <input
           type="password"
@@ -87,7 +97,8 @@ function SettingsUpdate(props) {
       ) : (
         <div className={classes.control}>
           <label htmlFor="password">Repeat password</label>
-          <input className={classes.passwordNotMatch}
+          <input
+            className={classes.passwordNotMatch}
             type="password"
             required
             id="password2"
@@ -95,37 +106,72 @@ function SettingsUpdate(props) {
             onChange={passwordChangeHandler}
           />
         </div>
-      )}
+      )} */}
       <div className={classes.control}>
         <label htmlFor="number">OIB</label>
-        <input type="number" required id="oib" ref={oibInputRef} />
+        <input
+          type="number"
+          required
+          id="oib"
+          ref={oibInputRef}
+          defaultValue={props.getUser.oib}
+        />
       </div>
       <div className={classes.control}>
         <label htmlFor="phone">Phone number</label>
-        <input type="text" required id="phone" ref={phoneInputRef} />
+        <input
+          type="text"
+          required
+          id="phone"
+          ref={phoneInputRef}
+          defaultValue={props.getUser.phone}
+        />
       </div>
       <div className={classes.control}>
         <label htmlFor="address">Address</label>
-        <input type="text" required id="address" ref={addressInputRef} />
+        <input
+          type="text"
+          required
+          id="address"
+          ref={addressInputRef}
+          defaultValue={props.getUser.address}
+        />
       </div>
       <div className={classes.control}>
         <label htmlFor="zip">ZIP</label>
-        <input type="number" required id="zip" ref={zipInputRef} />
+        <input
+          type="number"
+          required
+          id="zip"
+          ref={zipInputRef}
+          defaultValue={props.getUser.zip}
+        />
       </div>
       <div className={classes.control}>
         <label htmlFor="country">Country</label>
-        <input type="text" required id="country" ref={countryInputRef} />
+        <input
+          type="text"
+          required
+          id="country"
+          ref={countryInputRef}
+          defaultValue={props.getUser.country}
+        />
       </div>
       <div className={classes.control}>
         <label htmlFor="city">City</label>
-        <input type="text" required id="city" ref={cityInputRef} />
+        <input
+          type="text"
+          required
+          id="city"
+          ref={cityInputRef}
+          defaultValue={props.getUser.city}
+        />
       </div>
       <div className={classes.actions}>
-        <button disabled={isPasswordSame ? false : true}>{props.buttonText}</button>
+        <button>Update</button>
       </div>
     </form>
   );
 }
 
 export default SettingsUpdate;
-  

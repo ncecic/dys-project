@@ -1,14 +1,11 @@
 import classes from './MainNavigation.module.css';
 import Link from 'next/link';
-import { useUser } from '@auth0/nextjs-auth0/client';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 function MainNavigation() {
-  const { user, error, isLoading } = useUser();
+  const { data: session } = useSession();
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>{error.message}</div>;
-
-  console.log(user)
+  const user = session?.user;
 
   return (
     <header className={classes.header}>
@@ -27,12 +24,12 @@ function MainNavigation() {
           </li>
           {!user && (
             <li>
-              <Link href="/api/auth/login">Login</Link>
+              <button onClick={signIn}>Login</button>
             </li>
           )}
           {user && (
             <li>
-              <Link href="/api/auth/logout">Logout</Link>
+              <button onClick={signOut}>Logout</button>
             </li>
           )}
         </ul>

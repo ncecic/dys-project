@@ -1,11 +1,14 @@
 import Layout from '@/components/layout/Layout';
 import SettingsUpdate from '@/components/SettingsUpdate';
 import Card from '@/components/ui/Card';
+import { prisma } from '../../server/db/client';
+import axios from 'axios';
 
-function Settings( { user }) {
+function Settings({ user }) {
   async function updateSettingsHandler(usrData) {
     try {
-        await axios.post('api/posts', {
+      await axios.put('http://localhost:3000/api/posts', {
+        id: user.id,
         email: usrData.email,
         password: usrData.password,
         name: usrData.name,
@@ -17,7 +20,7 @@ function Settings( { user }) {
         city: usrData.city,
       });
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error.message);
     }
   }
 
@@ -25,7 +28,7 @@ function Settings( { user }) {
     <Layout>
       <h1>Settings</h1>
       <Card>
-        <SettingsUpdate onUpdateSettings = {updateSettingsHandler} activeUser={user}/>
+        <SettingsUpdate onUpdateSettings={updateSettingsHandler} getUser={user} />
       </Card>
     </Layout>
   );
@@ -34,12 +37,11 @@ function Settings( { user }) {
 export default Settings;
 
 export async function getServerSideProps() {
-  const posts = await prisma.post.findUnique({
+  const user = await prisma.post.findFirst({
     where: {
-      oib: 48187781011
-    }
+      email: 'test@test.hr',
+    },
   });
-
   return {
     props: {
       user,
