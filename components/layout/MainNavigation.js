@@ -1,33 +1,35 @@
 import classes from './MainNavigation.module.css';
 import Link from 'next/link';
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 
 function MainNavigation() {
-  const { data: session } = useSession();
-
-  const user = session?.user;
+  const { data: session, status } = useSession()
 
   return (
     <header className={classes.header}>
       <div className={classes.logo}>DYS Company</div>
       <nav>
         <ul>
+          {session && 
           <li>
             <Link href="/user/dashboard/">Dashboard</Link>
-          </li>
-
+          </li>}
+          {session && 
           <li>
             <Link href="/user/settings">Settings</Link>
-          </li>
+          </li> }
+
+          {!session && 
           <li>
             <Link href="/register">Registration</Link>
-          </li>
-          {!user && (
+          </li>}
+
+          {!session && (
             <li>
-              <button onClick={signIn}>Login</button>
+              <Link href="/login">Login</Link>
             </li>
           )}
-          {user && (
+          {session && (
             <li>
               <button onClick={signOut}>Logout</button>
             </li>

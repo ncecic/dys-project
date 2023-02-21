@@ -4,7 +4,8 @@ import Card from '@/components/ui/Card';
 import { prisma } from '../../server/db/client';
 import axios from 'axios';
 
-function Settings({ user }) {
+function Settings({user}) {
+
   async function updateSettingsHandler(usrData) {
     try {
       await axios.put('http://localhost:3000/api/posts', {
@@ -28,7 +29,10 @@ function Settings({ user }) {
     <Layout>
       <h1>Settings</h1>
       <Card>
-        <SettingsUpdate onUpdateSettings={updateSettingsHandler} getUser={user} />
+        <SettingsUpdate
+          onUpdateSettings={updateSettingsHandler}
+          getUser={user}
+        />
       </Card>
     </Layout>
   );
@@ -37,14 +41,15 @@ function Settings({ user }) {
 export default Settings;
 
 export async function getServerSideProps() {
-  const user = await prisma.post.findFirst({
+  
+  const user = await prisma.users.findFirst({
     where: {
       email: 'test@test.hr',
     },
   });
   return {
     props: {
-      user,
+      user: JSON.parse(JSON.stringify(user)),
     },
   };
 }

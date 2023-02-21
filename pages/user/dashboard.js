@@ -1,4 +1,3 @@
-import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import Layout from '@/components/layout/Layout';
 import CompanyData from '../../components/CompanyData';
 
@@ -19,5 +18,3 @@ function Dashboard() {
 }
 
 export default Dashboard;
-
-export const getServerSideProps = withPageAuthRequired();

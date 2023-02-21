@@ -9,7 +9,7 @@ export default async function handler(req, res) {
 
   switch (method) {
     case 'GET':
-      const findUser = await prisma.post.findFirst({
+      const findUser = await prisma.users.findFirst({
         where: {
           email: 'test@test.hr',
         }
@@ -19,7 +19,7 @@ export default async function handler(req, res) {
     break;
     case 'POST':
       // use prisma to create a new user using that data
-      const post = await prisma.post.create({
+      const user = await prisma.users.create({
         data: {
           email,
           password,
@@ -33,11 +33,11 @@ export default async function handler(req, res) {
         },
       });
       // send the post object back to the client
-      res.status(201).json(post);
+      res.status(201).json(user);
       break;
     case 'PUT':
       // use prisma to update the user using that data
-      const updatePost = await prisma.post.update({
+      const updateUser = await prisma.users.update({
         where: {
           id: id,
         },
@@ -53,7 +53,7 @@ export default async function handler(req, res) {
         },
       });
       // send the post object back to the client
-      res.status(201).json(updatePost);
+      res.status(201).json(updateUser);
       break;
     default:
       res.setHeader('Allow', ['POST', 'PUT']);

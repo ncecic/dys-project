@@ -11,15 +11,30 @@ datasource db {
 }
 
 // {id, email, password, name, oib, phone, address, zip, country, city}
-model Post {
-  id       Int      @id @default(autoincrement())
-  email    String    @default("")
-  password String   @default("")
-  name     String   @default("")
-  oib      String   @default("")
-  phone    String   @default("")
-  address  String   @default("")
-  zip      Int      @default(0)
-  country  String   @default("")
-  city     String   @default("")
+// model Post {
+//   id       Int      @id @default(autoincrement())
+//   email    String    @default("")
+//   password String   @default("")
+//   name     String   @default("")
+//   oib      String   @default("")
+//   phone    String   @default("")
+//   address  String   @default("")
+//   zip      Int      @default(0)
+//   country  String   @default("")
+//   city     String   @default("")
+// }
+
+model users {
+  userId        Int         @id @default(autoincrement())
+  email         String      @default("")
+  password      String      @default("")
+  oib           String      @default("")
+  name          String      @default("")
+  phone         String      @default("")
+  address       String      @default("")
+  zip           Int         @default(0)
+  country       String      @default("")
+  city          String      @default("")
+  isActive      String      @default("1") @db.Char(1)
+  registeredAt  DateTime    @default(now())
 }

@@ -120,7 +120,7 @@ function Registration(props) {
         <input type="text" required id="city" ref={cityInputRef} />
       </div>
       <div className={classes.actions}>
-        <button disabled={isPasswordSame ? false : true}>{props.buttonText}</button>
+        <button disabled={isPasswordSame ? false : true}>Register</button>
       </div>
     </form>
   );

@@ -4,13 +4,13 @@ import axios from 'axios';
 import Registration from '../components/Registration';
 import { useRouter } from 'next/router';
 import bcrypt from 'bcryptjs';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 function Register() {
   const router = useRouter();
 
   async function updateRegistrationHandler(usrData) {
     const hashedPsw = bcrypt.hashSync(usrData.password, bcrypt.genSaltSync());
-
     try {
       const { data } = await axios.post('api/posts', {
         email: usrData.email,
@@ -23,7 +23,15 @@ function Register() {
         country: usrData.country,
         city: usrData.city,
       });
-      console.log(data);
+
+    //   signIn("credentials", {
+    //     usrData.email, usrData.password, callbackUrl: `${window.location.origin}/dashboard`, redirect: false }
+    // ).then(function(result) {
+    //     router.push(result.url)
+    // }).catch(err => {
+    //     alert("Failed to register: " + err.toString())
+    // });
+      
       router.push('/login');
     } catch (error) {
       console.log(error.response.data);
@@ -36,7 +44,6 @@ function Register() {
       <Card>
         <Registration
           onRegister={updateRegistrationHandler}
-          buttonText={'Register'}
         />
       </Card>
     </Layout>
