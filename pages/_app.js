@@ -1,14 +1,22 @@
 import Layout from '@/components/layout/Layout';
-import Context from '@/context/context';
+import AuthContext from '@/context/auth-context';
 import '@/styles/globals.css';
-import { SessionProvider } from 'next-auth/react';
+import { getToken } from 'next-auth/jwt';
+import { getCsrfToken, getSession, SessionProvider, useSession } from 'next-auth/react';
+import { useEffect } from 'react';
 
 export default function App({ Component, pageProps }) {
+
   return (
-    <SessionProvider options={{ clientMaxAge: 0 }} session={pageProps.session}>
-      <Context>
+    <AuthContext.Provider value={
+      {userSession: false}
+    }>
+      <SessionProvider
+        options={{ clientMaxAge: 0 }}
+        session={pageProps.session}
+      >
         <Component {...pageProps} />
-      </Context>
-    </SessionProvider>
+      </SessionProvider>
+    </AuthContext.Provider>
   );
 }

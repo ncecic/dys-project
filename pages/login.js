@@ -18,7 +18,7 @@ function Login() {
     signIn('credentials', {
       email,
       password,
-      callbackUrl: `${window.location.origin}/user/dashboard`,
+      callbackUrl: `${window.location.origin}/`,
       redirect: false,
     }).then(function (result) {
       if (result.error !== null) {

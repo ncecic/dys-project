@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth';
 import { PrismaClient } from '@prisma/client';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { useCookies } from 'react-cookie';
 let userAccount = null;
 
 const prisma = new PrismaClient();
@@ -92,12 +93,10 @@ const configuration = {
         console.error('Signin callback error:', err);
       }
     },
-    async register(firstName, lastName, email, password) {
+    async register(email, password) {
       try {
         await prisma.users.create({
           data: {
-            firstName: firstName,
-            lastName: lastName,
             email: email,
             password: password,
           },
@@ -113,7 +112,7 @@ const configuration = {
         //session.user = userAccount;
         session.user = {
           userId: userAccount.userId,
-          name: `${userAccount.firstName} ${userAccount.lastName}`,
+          name: userAccount.name,
           email: userAccount.email,
         };
       } else if (

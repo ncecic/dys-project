@@ -1,0 +1,12 @@
+.detail {
+    text-align: center;
+    margin: 5rem;
+    padding: 1rem;
+  }
+  
+  
+  .detail p{
+    display: inline-block;
+    text-align: right;
+    margin: 10px;
+  }

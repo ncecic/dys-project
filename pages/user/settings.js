@@ -1,11 +1,15 @@
 import Layout from '@/components/layout/Layout';
 import SettingsUpdate from '@/components/SettingsUpdate';
 import Card from '@/components/ui/Card';
-import { prisma } from '../../server/db/client';
+import { prisma } from '@/server/db/client';
+// import { prisma } from '../../server/db/client';
 import axios from 'axios';
+import { getSession, useSession } from 'next-auth/react';
+import { useEffect } from 'react';
+import Cookies from 'react-cookie/cjs/Cookies';
 
 function Settings({user}) {
-
+  
   async function updateSettingsHandler(usrData) {
     try {
       await axios.put('http://localhost:3000/api/posts', {
@@ -40,11 +44,12 @@ function Settings({user}) {
 
 export default Settings;
 
-export async function getServerSideProps() {
-  
+export async function getServerSideProps(ctx) {
+  console.log('getserverprops')
+  console.log(ctx.req);
   const user = await prisma.users.findFirst({
     where: {
-      email: 'test@test.hr',
+      userId: 7,
     },
   });
   return {
@@ -53,3 +58,14 @@ export async function getServerSideProps() {
     },
   };
 }
+
+// export async function getServerSideProps(ctx) {
+//   const session = getSession();
+//   //check the console of backend, you will get tokens here
+//   console.log(session.token);
+//   return {
+//     props: {
+//       user: 'bar',
+//     },
+//   };
+// }

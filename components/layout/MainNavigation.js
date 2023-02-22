@@ -1,9 +1,14 @@
 import classes from './MainNavigation.module.css';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
+import { staticPageGenerationTimeout } from '@/next.config';
 
 function MainNavigation() {
   const { data: session, status } = useSession()
+
+  function signoutOutHandler() {
+    signOut({callbackUrl: `${window.location.origin}/login`})
+  }
 
   return (
     <header className={classes.header}>
@@ -12,11 +17,11 @@ function MainNavigation() {
         <ul>
           {session && 
           <li>
-            <Link href="/user/dashboard/">Dashboard</Link>
+            <Link href={`/user/${session.user.userId}/dashboard`}>Dashboard</Link>
           </li>}
           {session && 
           <li>
-            <Link href="/user/settings">Settings</Link>
+            <Link href={`/user/${session.user.userId}/settings`}>Settings</Link>
           </li> }
 
           {!session && 
@@ -31,7 +36,7 @@ function MainNavigation() {
           )}
           {session && (
             <li>
-              <button onClick={signOut}>Logout</button>
+              <button onClick={signoutOutHandler}>Logout</button>
             </li>
           )}
         </ul>
