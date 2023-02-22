@@ -5,18 +5,18 @@ import { prisma } from '@/server/db/client';
 // import { prisma } from '../../server/db/client';
 import axios from 'axios';
 import { getSession, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import Cookies from 'react-cookie/cjs/Cookies';
 
-function Settings({user}) {
-  
+function Settings({ user }) {
+  const router = useRouter();
 
   async function updateSettingsHandler(usrData) {
     try {
       await axios.put('http://localhost:3000/api/posts', {
-        id: user.id,
+        id: parseInt(router.query.userId),
         email: usrData.email,
-        password: usrData.password,
         name: usrData.name,
         oib: usrData.oib,
         phone: usrData.phone,
@@ -46,6 +46,17 @@ function Settings({user}) {
 export default Settings;
 
 export async function getServerSideProps(ctx) {
+  const session = await getSession(ctx);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
   const user = await prisma.users.findFirst({
     where: {
       userId: parseInt(ctx.params.userId),

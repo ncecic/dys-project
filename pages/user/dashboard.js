@@ -1,4 +1,5 @@
 import Layout from '@/components/layout/Layout';
+import { getSession } from 'next-auth/react';
 import CompanyData from '../../components/CompanyData';
 
 const DUMMY_COMPANY = {
@@ -18,3 +19,4 @@ function Dashboard() {
 }
 
 export default Dashboard;
+

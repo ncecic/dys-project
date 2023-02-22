@@ -39,17 +39,36 @@ function Login() {
     <Layout>
       <Card>
         <form className={classes.form} onSubmit={submitHandler}>
+          {loginError && (
+            <div className={classes.error}>
+              <p>
+                Looks like either your email address or password were incorrect.
+                Wanna try again?
+              </p>
+            </div>
+          )}
           <div className={classes.control}>
-            <label htmlFor="email">Login</label>
-            <input type="email" required id="email" onChange={(e) => setEmail(e.target.value)}/>
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              required
+              id="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
           <div className={classes.control}>
             <label htmlFor="password">Password</label>
-            <input type="password" required id="password" onChange={(e) => setPassword(e.target.value)}/>
+            <input
+              type="password"
+              required
+              id="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
           <div className={classes.actions}>
             <button>Login</button>
           </div>
+          <p>If you are not a user u can <a href="/register">sign up here</a></p>
         </form>
       </Card>
     </Layout>

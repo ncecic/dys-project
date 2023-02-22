@@ -47,3 +47,11 @@
     background-color: #a50e48;
     border-color: #a50e48;
   }
+
+  .error {
+    background-color: #ee6fa0;
+    border-color: #ee6fa0;
+    border-radius: 5px;
+    padding: 0.1rem;
+    margin-bottom: 1rem;
+  }

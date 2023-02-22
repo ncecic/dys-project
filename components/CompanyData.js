@@ -8,31 +8,31 @@ function CompanyData(props) {
         <h1>{props.company.name}</h1>
         <ul>
           <li>
-            <label for="email">Email:</label>
+            <label htmlFor="email">Email:</label>
             <p>{props.company.email}</p>
           </li>
           <li>
-            <label for="oib">OIB:</label>
+            <label htmlFor="oib">OIB:</label>
             <p>{props.company.oib}</p>
           </li>
           <li>
-            <label for="phone">Phone:</label>
+            <label htmlFor="phone">Phone:</label>
             <p>{props.company.phone}</p>
           </li>
           <li>
-            <label for="address">Address:</label>
+            <label htmlFor="address">Address:</label>
             <p>{props.company.address}</p>
           </li>
           <li>
-            <label for="zip">ZIP:</label>
+            <label htmlFor="zip">ZIP:</label>
             <p>{props.company.zip}</p>
           </li>
           <li>
-            <label for="country">Country:</label>
+            <label htmlFor="country">Country:</label>
             <p>{props.company.country}</p>
           </li>
           <li>
-            <label for="city">City:</label>
+            <label htmlFor="city">City:</label>
             <p>{props.company.city}</p>
           </li>
         </ul>

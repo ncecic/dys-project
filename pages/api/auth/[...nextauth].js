@@ -1,7 +1,6 @@
 import NextAuth from 'next-auth';
 import { PrismaClient } from '@prisma/client';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { useCookies } from 'react-cookie';
 let userAccount = null;
 
 const prisma = new PrismaClient();
@@ -128,7 +127,7 @@ const configuration = {
       return session;
     },
     async jwt(token, user, account, profile, isNewUser) {
-      // console.log('JWT callback. Got User: ', user);
+      console.log('JWT callback. Got User: ', user);
       if (typeof user !== typeof undefined) {
         token.user = user;
       }

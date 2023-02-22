@@ -1,6 +1,7 @@
 import Layout from '../../../components/layout/Layout';
 import { prisma } from '@/server/db/client';
 import CompanyData from '../../../components/CompanyData';
+import { getSession } from 'next-auth/react';
 
 function Dashboard({ user }) {
   return (
@@ -13,6 +14,17 @@ function Dashboard({ user }) {
 export default Dashboard;
 
 export async function getServerSideProps(ctx) {
+  const session = await getSession(ctx);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
   const user = await prisma.users.findFirst({
     where: {
       userId: parseInt(ctx.params.userId),

@@ -30,7 +30,7 @@ export default async function handler(req, res) {
       // use prisma to update the user using that data
       const updateUser = await prisma.users.update({
         where: {
-          id: id,
+          userId: parseInt(id),
         },
         data: {
           email,
@@ -43,6 +43,7 @@ export default async function handler(req, res) {
           city,
         },
       });
+      debugger;
       // send the post object back to the client
       res.status(201).json(updateUser);
       break;
