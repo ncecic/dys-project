@@ -2,15 +2,29 @@ import Layout from '@/components/layout/Layout';
 import SettingsUpdate from '@/components/SettingsUpdate';
 import Card from '@/components/ui/Card';
 import { prisma } from '@/server/db/client';
-// import { prisma } from '../../server/db/client';
 import axios from 'axios';
-import { getSession, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import Cookies from 'react-cookie/cjs/Cookies';
+
 
 function Settings({ user }) {
-  const router = useRouter();
+  const router = new useRouter();
+  const { data: session } = useSession();
+
+  if (!session) {
+    return (
+
+        <iframe
+          src="https://giphy.com/embed/owRSsSHHoVYFa"
+          width="480"
+          height="360"
+          frameBorder="0"
+          class="giphy-embed"
+          allowFullScreen
+        ></iframe>
+
+    );
+  }
 
   async function updateSettingsHandler(usrData) {
     try {
@@ -25,6 +39,7 @@ function Settings({ user }) {
         country: usrData.country,
         city: usrData.city,
       });
+      router.push('/')
     } catch (error) {
       console.log(error.message);
     }
@@ -46,17 +61,6 @@ function Settings({ user }) {
 export default Settings;
 
 export async function getServerSideProps(ctx) {
-  const session = await getSession(ctx);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    };
-  }
-
   const user = await prisma.users.findFirst({
     where: {
       userId: parseInt(ctx.params.userId),
@@ -68,14 +72,3 @@ export async function getServerSideProps(ctx) {
     },
   };
 }
-
-// export async function getServerSideProps(ctx) {
-//   const session = getSession();
-//   //check the console of backend, you will get tokens here
-//   console.log(session.token);
-//   return {
-//     props: {
-//       user: 'bar',
-//     },
-//   };
-// }

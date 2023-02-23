@@ -108,7 +108,6 @@ const configuration = {
     },
     async session(session, token) {
       if (userAccount !== null) {
-        //session.user = userAccount;
         session.user = {
           userId: userAccount.userId,
           name: userAccount.name,

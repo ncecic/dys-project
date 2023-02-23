@@ -10,20 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// {id, email, password, name, oib, phone, address, zip, country, city}
-// model Post {
-//   id       Int      @id @default(autoincrement())
-//   email    String    @default("")
-//   password String   @default("")
-//   name     String   @default("")
-//   oib      String   @default("")
-//   phone    String   @default("")
-//   address  String   @default("")
-//   zip      Int      @default(0)
-//   country  String   @default("")
-//   city     String   @default("")
-// }
-
 model users {
   userId        Int         @id @default(autoincrement())
   email         String      @default("")
