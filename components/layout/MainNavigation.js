@@ -1,7 +1,6 @@
 import classes from './MainNavigation.module.css';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
-import { staticPageGenerationTimeout } from '@/next.config';
 
 function MainNavigation() {
   const { data: session, status } = useSession()

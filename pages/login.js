@@ -1,6 +1,6 @@
 import Layout from '@/components/layout/Layout';
 import Card from '@/components/ui/Card';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import classes from './login.module.css';
@@ -9,8 +9,13 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
+  const { data: session } = useSession();
 
   const router = new useRouter();
+
+  if (session) {
+    router.push(`/user/${session.user.userId}/dashboard`);
+  }
 
   function submitHandler(event) {
     event.preventDefault();

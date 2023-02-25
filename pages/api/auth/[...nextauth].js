@@ -16,12 +16,13 @@ const confirmPasswordHash = (plainPassword, hashedPassword) => {
 };
 
 const configuration = {
-  cookie: {
-    secure: process.env.NODE_ENV && process.env.NODE_ENV === 'production',
-  },
+  //   cookie: {
+  //     secure: process.env.NODE_ENV && process.env.NODE_ENV === 'production',
+  // },
+  redirect: false,
   session: {
-    jwt: true,
-    maxAge: 30 * 24 * 60 * 60,
+    strategy: "jwt",
+    // maxAge: 30 * 24 * 60 * 60,
   },
   providers: [
     CredentialsProvider({
@@ -55,12 +56,14 @@ const configuration = {
                 city: user.city,
                 isActive: user.isActive,
               };
+              console.log('Authorize returning userAccount');
               return userAccount;
             } else {
               console.log('Hash not matched logging in');
               return null;
             }
           } else {
+            console.log('Authorize returning null')
             return null;
           }
         } catch (err) {
@@ -106,13 +109,14 @@ const configuration = {
         return false;
       }
     },
-    async session(session, token) {
+    session: async ({session, token}) => {
       if (userAccount !== null) {
         session.user = {
           userId: userAccount.userId,
           name: userAccount.name,
           email: userAccount.email,
         };
+
       } else if (
         typeof token.user !== typeof undefined &&
         (typeof session.user === typeof undefined ||
@@ -120,17 +124,19 @@ const configuration = {
             typeof session.user.userId === typeof undefined))
       ) {
         session.user = token.user;
+
       } else if (typeof token !== typeof undefined) {
         session.token = token;
+
       }
-      return session;
+      return Promise.resolve(session);
     },
-    async jwt(token, user, account, profile, isNewUser) {
+    async jwt({token, user}) {
       console.log('JWT callback. Got User: ', user);
       if (typeof user !== typeof undefined) {
         token.user = user;
       }
-      return token;
+      return Promise.resolve(token);
     },
   },
 };

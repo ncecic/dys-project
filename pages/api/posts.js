@@ -9,22 +9,27 @@ export default async function handler(req, res) {
 
   switch (method) {
     case 'POST':
-      // use prisma to create a new user using that data
-      const user = await prisma.users.create({
-        data: {
-          email,
-          password,
-          name,
-          oib,
-          phone,
-          address,
-          zip,
-          country,
-          city,
-        },
-      });
-      // send the post object back to the client
-      res.status(201).json(user);
+      try {
+        // use prisma to create a new user using that data
+        const user = await prisma.users.create({
+          data: {
+            email,
+            password,
+            name,
+            oib,
+            phone,
+            address,
+            zip,
+            country,
+            city,
+          },
+        }); 
+        // send the post object back to the client
+        res.status(201).json(user);
+      } catch (error) {
+        console.log('Error api/posts:', error.message);
+        res.status(520).json(error.message)
+      }
       break;
     case 'PUT':
       // use prisma to update the user using that data
@@ -43,7 +48,6 @@ export default async function handler(req, res) {
           city,
         },
       });
-      debugger;
       // send the post object back to the client
       res.status(201).json(updateUser);
       break;

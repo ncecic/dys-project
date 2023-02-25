@@ -2,12 +2,9 @@ import {useRef, useState } from 'react';
 import classes from './SettingsUpdate.module.css';
 
 function SettingsUpdate(props) {
-  // const [isPasswordSame, setIsPasswordSame] = useState(true);
 
   const nameInputRef = useRef();
   const emailInputRef = useRef();
-  // const password1InputRef = useRef();
-  // const password2InputRef = useRef();
   const oibInputRef = useRef();
   const phoneInputRef = useRef();
   const addressInputRef = useRef();
@@ -20,7 +17,6 @@ function SettingsUpdate(props) {
 
     const enteredName = nameInputRef.current.value;
     const enteredEmail = emailInputRef.current.value;
-    // const enteredPass1 = password1InputRef.current.value;
     const enteredOib = oibInputRef.current.value;
     const enteredPhone = phoneInputRef.current.value;
     const enteredAddress = addressInputRef.current.value;
@@ -31,7 +27,6 @@ function SettingsUpdate(props) {
     const userData = {
       name: enteredName,
       email: enteredEmail,
-      // password: enteredPass1,
       oib: enteredOib,
       phone: enteredPhone,
       address: enteredAddress,
@@ -42,15 +37,6 @@ function SettingsUpdate(props) {
 
     props.onUpdateSettings(userData);
   }
-
-  // function passwordChangeHandler() {
-  //   if (password1InputRef.current.value !== password2InputRef.current.value) {
-  //     setIsPasswordSame(false);
-  //   } else {
-  //     setIsPasswordSame(true);
-  //   }
-  // }
-
   return (
     <form className={classes.form} onSubmit={submitHandler}>
       <div className={classes.control}>
@@ -73,40 +59,6 @@ function SettingsUpdate(props) {
           defaultValue={props.getUser.email}
         />
       </div>
-      {/* <div className={classes.control}>
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          required
-          id="password1"
-          ref={password1InputRef}
-          onChange={passwordChangeHandler}
-        />
-      </div>
-      {isPasswordSame ? (
-        <div className={classes.control}>
-          <label htmlFor="password">Repeat password</label>
-          <input
-            type="password"
-            required
-            id="password2"
-            ref={password2InputRef}
-            onChange={passwordChangeHandler}
-          />
-        </div>
-      ) : (
-        <div className={classes.control}>
-          <label htmlFor="password">Repeat password</label>
-          <input
-            className={classes.passwordNotMatch}
-            type="password"
-            required
-            id="password2"
-            ref={password2InputRef}
-            onChange={passwordChangeHandler}
-          />
-        </div>
-      )} */}
       <div className={classes.control}>
         <label htmlFor="number">OIB</label>
         <input

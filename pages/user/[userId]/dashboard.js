@@ -14,7 +14,7 @@ function Dashboard({ user }) {
           width="480"
           height="360"
           frameBorder="0"
-          class="giphy-embed"
+          className="giphy-embed"
           allowFullScreen
         ></iframe>
 
@@ -23,6 +23,7 @@ function Dashboard({ user }) {
 
   return (
     <Layout>
+      <h1>Dashboard</h1>
       <CompanyData company={user} />
     </Layout>
   );
