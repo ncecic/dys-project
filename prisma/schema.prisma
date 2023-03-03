@@ -10,10 +10,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model users {
-  userId        Int         @id @default(autoincrement())
+model User {
+  id            Int         @id @default(autoincrement())
   email         String      @unique @default("")
   password      String      @default("")
+  isActive      String      @default("1") @db.Char(1)
+  profile       Profile?    
+  registeredAt  DateTime    @default(now())
+}
+
+model Profile {
+  id            Int         @id @default(autoincrement())
   oib           String      @default("")
   name          String      @default("")
   phone         String      @default("")
@@ -21,6 +28,7 @@ model users {
   zip           Int         @default(0)
   country       String      @default("")
   city          String      @default("")
-  isActive      String      @default("1") @db.Char(1)
-  registeredAt  DateTime    @default(now())
+
+  user          User        @relation(fields: [userId], references: [id])
+  userId        Int         @unique
 }

@@ -1,0 +1,61 @@
+$primaryColor: #27a8e4;
+$buttonColor: #0682bb;
+$buttonHoverColor: #42bbf3;
+$linkHoverColor: #cee7f5;
+
+.header {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $primaryColor;
+  padding: 0 10%;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: baseline;
+  }
+
+  li {
+    margin-left: 3rem;
+  }
+
+  a {
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: #ffffff;
+
+    &:hover,
+    &:active,
+    &.active {
+      color: $linkHoverColor;
+    }
+  }
+
+  button {
+    font: inherit;
+    cursor: pointer;
+    background-color: $buttonColor;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid $buttonColor;
+    border-radius: 4px;
+    font-weight: bold;
+
+    &:hover,
+    &:active {
+      background-color: $buttonHoverColor;
+      border-color: $buttonHoverColor;
+    }
+  }
+}
+
+.logo {
+  font-size: 2rem;
+  color: white;
+  font-weight: bold;
+}
