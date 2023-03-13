@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { prisma } from '@/src/server/db/client';
+import NotAuth from '@/src/components/NotAuth';
 
 
 function Settings({ user }) {
@@ -22,16 +23,9 @@ function Settings({ user }) {
   // console.log('session.user.userId: ', session.user.userId);
   // console.log('Router: ', router.query.userId);
 
-  if (!user || sessionUserId && sessionUserId != router.query.userId) {
+  if (!user || sessionUserId != router.query.userId) {
     return (
-      <iframe
-        src="https://giphy.com/embed/owRSsSHHoVYFa"
-        width="480"
-        height="360"
-        frameBorder="0"
-        className="giphy-embed"
-        allowFullScreen
-      ></iframe>
+      <NotAuth />
     );
   }
 

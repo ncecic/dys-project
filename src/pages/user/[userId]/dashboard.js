@@ -3,6 +3,7 @@ import CompanyData from '../../../components/CompanyData';
 import { useSession } from 'next-auth/react';
 import { prisma } from '@/src/server/db/client';
 import { useRouter } from 'next/router';
+import NotAuth from '@/src/components/NotAuth';
 
 function Dashboard({ user }) {
   const { data: session } = useSession();
@@ -16,19 +17,14 @@ function Dashboard({ user }) {
     sessionUserId = null;
   }
 
+
   // console.log('session.user.userId: ', session.user.userId);
   // console.log('Router: ', router.query.userId);
+  console.log('User: ', user);
 
-  if (!user || sessionUserId && sessionUserId != router.query.userId) {
+  if (!user || sessionUserId != router.query.userId) {
     return (
-      <iframe
-        src="https://giphy.com/embed/owRSsSHHoVYFa"
-        width="480"
-        height="360"
-        frameBorder="0"
-        className="giphy-embed"
-        allowFullScreen
-      ></iframe>
+      <NotAuth />
     );
   }
 
