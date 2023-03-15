@@ -3,41 +3,44 @@ import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
 
 function MainNavigation() {
-  const { data: session, status } = useSession()
+  const { data: userSession, status } = useSession();
 
   function signoutOutHandler() {
-    signOut({callbackUrl: `${window.location.origin}/login`})
+    signOut({ callbackUrl: `${window.location.origin}/login` })
   }
+
+  const authenticatedLinks = (
+    <>
+      <li>
+        <Link href={`/user/${userSession?.user?.userId}/dashboard`}>Dashboard</Link>
+      </li>
+      <li>
+        <Link href={`/user/${userSession?.user?.userId}/settings`}>Settings</Link>
+      </li>
+      <li>
+        <button onClick={signoutOutHandler}>Logout</button>
+      </li>
+    </>
+  );
+
+  const unauthenticatedLinks = (
+    <>
+      <li>
+        <Link href="/register">Registration</Link>
+      </li>
+      <li>
+        <Link href="/login">Login</Link>
+      </li>
+    </>
+  );
 
   return (
     <header className={classes.header}>
       <div className={classes.logo}>DYS Company</div>
       <nav>
         <ul>
-          {session && 
-          <li>
-            <Link href={`/user/${session.user.userId}/dashboard`}>Dashboard</Link>
-          </li>}
-          {session && 
-          <li>
-            <Link href={`/user/${session.user.userId}/settings`}>Settings</Link>
-          </li> }
-
-          {!session && 
-          <li>
-            <Link href="/register">Registration</Link>
-          </li>}
-
-          {!session && (
-            <li>
-              <Link href="/login">Login</Link>
-            </li>
-          )}
-          {session && (
-            <li>
-              <button onClick={signoutOutHandler}>Logout</button>
-            </li>
-          )}
+          {userSession && authenticatedLinks}
+          {!userSession && unauthenticatedLinks}
         </ul>
       </nav>
     </header>

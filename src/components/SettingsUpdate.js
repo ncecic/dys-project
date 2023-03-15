@@ -16,24 +16,24 @@ function SettingsUpdate(props) {
   function submitHandler(event) {
     event.preventDefault();
 
-    const enteredName = nameInputRef.current.value;
-    const enteredEmail = emailInputRef.current.value;
-    const enteredOib = oibInputRef.current.value;
-    const enteredPhone = phoneInputRef.current.value;
-    const enteredAddress = addressInputRef.current.value;
-    const enteredZip = zipInputRef.current.value;
-    const enteredCountry = countryInputRef.current.value;
-    const enteredCity = cityInputRef.current.value;
+    // const enteredName = nameInputRef.current.value;
+    // const enteredEmail = emailInputRef.current.value;
+    // const enteredOib = oibInputRef.current.value;
+    // const enteredPhone = phoneInputRef.current.value;
+    // const enteredAddress = addressInputRef.current.value;
+    // const enteredZip = zipInputRef.current.value;
+    // const enteredCountry = countryInputRef.current.value;
+    // const enteredCity = cityInputRef.current.value;
 
     const userData = {
-      name: enteredName,
-      email: enteredEmail,
-      oib: enteredOib,
-      phone: enteredPhone,
-      address: enteredAddress,
-      zip: enteredZip,
-      country: enteredCountry,
-      city: enteredCity,
+      name: nameInputRef.current.value,
+      email: emailInputRef.current.value,
+      oib: oibInputRef.current.value,
+      phone: phoneInputRef.current.value,
+      address: addressInputRef.current.value,
+      zip: zipInputRef.current.value,
+      country: countryInputRef.current.value,
+      city: cityInputRef.current.value,
     };
 
     props.onUpdateSettings(userData);

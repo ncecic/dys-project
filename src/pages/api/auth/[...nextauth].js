@@ -1,28 +1,21 @@
 import NextAuth from 'next-auth';
 import { PrismaClient } from '@prisma/client';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import bcrypt from 'bcrypt';
 let userAccount = null;
 
 const prisma = new PrismaClient();
 
-const bcrypt = require('bcrypt');
-
-const confirmPasswordHash = (plainPassword, hashedPassword) => {
-  return new Promise((resolve) => {
-    bcrypt.compare(plainPassword, hashedPassword, function (err, res) {
-      resolve(res);
-    });
-  });
+const confirmPasswordHash = async (plainPassword, hashedPassword) => {
+  const res = await bcrypt.compare(plainPassword, hashedPassword);
+  return res;
 };
 
 const configuration = {
-  //   cookie: {
-  //     secure: process.env.NODE_ENV && process.env.NODE_ENV === 'production',
-  // },
+
   redirect: false,
   session: {
     strategy: 'jwt',
-    // maxAge: 30 * 24 * 60 * 60,
   },
   providers: [
     CredentialsProvider({

@@ -4,14 +4,15 @@ import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import classes from './login.module.css';
+import Link from 'next/link';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
-  const { data: session } = useSession();
+  const { data: session } = useSession() || {};
 
-  const router = new useRouter();
+  const router = useRouter();
 
   if (session) {
     router.push(`/user/${session.user.userId}/dashboard`);
@@ -73,7 +74,7 @@ function Login() {
           <div className={classes.actions}>
             <button>Login</button>
           </div>
-          <p>If you are not a user u can <a href="/register">sign up here</a></p>
+          <p>If you are not a user u can <Link href="/register">sign up here</Link></p>
         </form>
       </Card>
     </Layout>
